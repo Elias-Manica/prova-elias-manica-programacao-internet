@@ -95,7 +95,7 @@ public class acao extends HttpServlet {
                 HttpSession sessao = request.getSession();
                 sessao.setAttribute("user", usuario);
 
-                encaminharPagina("menu.jsp", request, response);
+                encaminharPagina("home.jsp", request, response);
             } else {
                 encaminharPagina("erro.jsp", request, response);
             }
