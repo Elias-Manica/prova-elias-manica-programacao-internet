@@ -16,33 +16,6 @@ import java.sql.ResultSet;
  */
 public class UsuarioDAO {
     public Usuario autenticar(String nome, String senha) {
-        Usuario u = new Usuario();
-
-        //try {
-            // Cria a conexão com o banco de dados
-          //  Statement st = ConexaoBD.getInstance().getConnection().createStatement();
-
-            // Monta a consulta SQL
-          //  String sql = "SELECT * FROM usuario WHERE nome = '" + nome + "' AND senha = '" + senha + "'";
-           // ResultSet rs = st.executeQuery(sql);
-
-            // Se encontrar um resultado, autentica o usuário
-            //if (rs.next()) {
-                //autenticado = true;
-            //}
-
-            // Fecha a conexão
-            //rs.close();
-            //st.close();
-
-        //} catch (Exception e) {
-            //System.out.println("Erro ao autenticar usuário: " + e.getMessage());
-        //}
-
-        return u;
-    }
-    
-    public Usuario autenticarBanco(String nome, String senha) {
         Usuario usuario = null;
         
         try {
@@ -51,12 +24,15 @@ public class UsuarioDAO {
             
             // Monta a consulta SQL usando PreparedStatement para evitar SQL Injection
             String sql = "SELECT * FROM usuario WHERE nome = ? AND senha = ?";
+            
+            System.out.print(sql);
             PreparedStatement ps = con.prepareStatement(sql);
             
             // Define os parâmetros da consulta
             ps.setString(1, nome);
             ps.setString(2, senha);
             
+            System.out.print(ps);
             // Executa a consulta
             ResultSet rs = ps.executeQuery();
             
@@ -65,13 +41,8 @@ public class UsuarioDAO {
                 usuario = new Usuario();
                 usuario.setId(rs.getInt("id"));
                 usuario.setNome(rs.getString("nome"));
-                usuario.setSenha(rs.getString("senha")); // Por boas práticas, não é ideal retornar a senha, mas fiz para o exemplo
+                usuario.setSenha(rs.getString("senha")); 
             }
-            
-            // Fecha os recursos
-            rs.close();
-            ps.close();
-            con.close();
             
         } catch (Exception e) {
             System.out.println("Erro ao autenticar usuário: " + e.getMessage());

@@ -5,6 +5,8 @@
 package servelet;
 
 import dao.UsuarioDAO;
+import dao.PessoaDAO;
+import entidade.Pessoa;
 import entidade.Usuario;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -75,8 +77,8 @@ public class acao extends HttpServlet {
             throws ServletException, IOException {
        //processRequest(request, response);
        String a = request.getParameter("a");
-       System.out.println("entrei");
-       if (a.equals("login")) {
+
+        if (a.equals("login")) {
             // logica do login
             // pegar usuario
             // pegar senha
@@ -84,12 +86,12 @@ public class acao extends HttpServlet {
             // sucesso = vai pro sistema || erro = login de novo
 
             String user = request.getParameter("user");
-            String passwd = request.getParameter("passwd");
+            String password = request.getParameter("password");
 
             System.out.println("User: " + user);
-            System.out.println("Passwd: " + passwd);
+            System.out.println("password: " + password);
 
-            Usuario usuario = new UsuarioDAO().autenticar(user, passwd);
+            Usuario usuario = new UsuarioDAO().autenticar(user, password);
 
             if (usuario != null) {
                 HttpSession sessao = request.getSession();
@@ -106,6 +108,49 @@ public class acao extends HttpServlet {
 
             response.sendRedirect("login.jsp");
         }
+        if (a.equals("salvarUsuario")) {
+            String codigo = request.getParameter("id");
+            String nome = request.getParameter("nome");
+            String email = request.getParameter("email");
+            String senha = request.getParameter("senha");
+            String dataNascimento = request.getParameter("dataNascimento");
+
+            Pessoa pessoa = new Pessoa();
+
+            if (codigo != null && !codigo.isEmpty()) {
+                int id = Integer.parseInt(codigo);
+                pessoa.setId(id);
+            } else {
+                pessoa.setId(0);
+            }
+            
+            pessoa.setNome(nome);
+            pessoa.setEmail(email);
+            pessoa.setSenha(senha);
+            pessoa.setDataNascimento(dataNascimento);
+
+            String errorMessage = new PessoaDAO().validarDados(pessoa);
+
+            if (errorMessage == null) {
+                if (pessoa.getId() == 0) {
+                    if (new PessoaDAO().salvar(pessoa)) {
+                        encaminharPagina("sucesso.jsp", request, response);
+                    } else {
+                        encaminharPagina("erro-cadastro.jsp", request, response);
+                    }
+                } else { // Atualizando usuário existente
+                    if (new PessoaDAO().atualizar(pessoa)) {
+                        encaminharPagina("sucesso.jsp", request, response);
+                    } else {
+                        encaminharPagina("erro-cadastro.jsp", request, response);
+                    }
+                }
+            } else {
+                request.setAttribute("erroMensagem", errorMessage);
+                encaminharPagina("erro-cadastro.jsp", request, response);
+            }
+        }
+
     }
 
     /**

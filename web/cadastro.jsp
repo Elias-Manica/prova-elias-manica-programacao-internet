@@ -40,6 +40,7 @@
             }
             input[type="text"],
             input[type="email"],
+             input[type="password"],
             input[type="date"] {
                 width: 100%;
                 padding: 10px;
@@ -73,16 +74,20 @@
         <div class="wrapper">
             <h1>Cadastro</h1>
             <div class="form-container">
-                <form action="submitCadastro.jsp" method="post">
+                <form action="acao?a=salvarUsuario" method="post">
                     <label for="nome">Nome Completo:</label>
                     <input type="text" id="nome" name="nome" required>
 
                     <label for="email">E-mail:</label>
                     <input type="email" id="email" name="email" required>
+                    
+                    <label for="password">Senha:</label>
+                    <input type="password" id="senha" name="senha" required>
 
                     <label for="dataNascimento">Data de Nascimento:</label>
                     <input type="date" id="dataNascimento" name="dataNascimento" required>
 
+                    <input type="text" id="id" name="id" readonly="" style="display: none"><br>
                     <input type="submit" value="Cadastrar">
                 </form>
             </div>
