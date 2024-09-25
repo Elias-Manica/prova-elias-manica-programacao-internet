@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="dao.PessoaDAO"%>
+<%@page import="entidade.Pessoa"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -70,25 +72,32 @@
         </style>
     </head>
     <%@include file="menu.jsp" %>
+    <%
+        Pessoa p = (Pessoa) request.getAttribute("pessoa");
+
+        if (p == null) {
+            p = new Pessoa();
+        }
+    %>
     <body>
         <div class="wrapper">
             <h1>Cadastro</h1>
             <div class="form-container">
                 <form action="acao?a=salvarUsuario" method="post">
                     <label for="nome">Nome Completo:</label>
-                    <input type="text" id="nome" name="nome" required>
+                    <input type="text" id="nome" name="nome" required  value="<%= p.getNome() %>">
 
                     <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required value="<%= p.getEmail() %>">
                     
                     <label for="password">Senha:</label>
-                    <input type="password" id="senha" name="senha" required>
+                    <input type="password" id="senha" name="senha" required value="<%= p.getSenha() %>">
 
                     <label for="dataNascimento">Data de Nascimento:</label>
-                    <input type="date" id="dataNascimento" name="dataNascimento" required>
+                    <input type="date" id="dataNascimento" name="dataNascimento" required value="<%= p.getDataNascimento() %>">
 
-                    <input type="text" id="id" name="id" readonly="" style="display: none"><br>
-                    <input type="submit" value="Cadastrar">
+                    <input type="text" id="id" name="id" readonly="" style="display: none" value="<%= p.getId() %>"><br>
+                    <input type="submit" value="<%= p.getId() == 0 ? "Cadastrar" : "Atualizar" %>">
                 </form>
             </div>
         </div>

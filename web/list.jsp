@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidade.Pessoa"%>
+<%@page import="dao.PessoaDAO"%>
 <!DOCTYPE html>
 <html lang="pt-BR">
     <head>
@@ -29,6 +32,9 @@
     <body>
         <div class="container">
             <h1>Lista de Cadastros</h1>
+
+            <% ArrayList<Pessoa> pessoas = new PessoaDAO().consultar(); %>
+
             <table class="table table-bordered table-striped">
                 <thead class="thead-dark">
                     <tr>
@@ -40,28 +46,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <%-- Exemplo de dados. Você deve substituir isso pela lógica que busca os dados cadastrados. --%>
-                    <tr>
-                        <td>1</td>
-                        <td>Elias Manica</td>
-                        <td>elias@example.com</td>
-                        <td>1990-01-01</td>
-                        <td>
-                            <a href="editCadastro.jsp?id=1" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="deleteCadastro.jsp?id=1" class="btn btn-danger btn-sm">Excluir</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Maria Silva</td>
-                        <td>maria@example.com</td>
-                        <td>1992-02-02</td>
-                        <td>
-                            <a href="editCadastro.jsp?id=2" class="btn btn-warning btn-sm">Editar</a>
-                            <a href="deleteCadastro.jsp?id=2" class="btn btn-danger btn-sm">Excluir</a>
-                        </td>
-                    </tr>
-                    <%-- Adicione mais linhas conforme necessário --%>
+                    <% if (pessoas != null && !pessoas.isEmpty()) { 
+                        for (Pessoa p : pessoas) { %>
+                        <tr>
+                            <td><%= p.getId() %></td>
+                            <td><%= p.getNome() %></td>
+                            <td><%= p.getEmail() %></td>
+                            <td><%= p.getDataNascimento() %></td>
+                            <td>
+                                <a href="acao?a=editarPessoa&id=<%= p.getId() %>" class="btn btn-warning btn-sm">Editar</a>
+                                <a href="acao?a=excluirPessoa&id=<%= p.getId() %>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                            </td>
+                        </tr>
+                    <% } } else { %>
+                        <tr>
+                            <td colspan="5" class="text-center">Nenhum cadastro encontrado</td>
+                        </tr>
+                    <% } %>
                 </tbody>
             </table>
         </div>

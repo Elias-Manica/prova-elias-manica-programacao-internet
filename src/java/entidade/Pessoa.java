@@ -14,6 +14,12 @@ public class Pessoa {
     private String email;
     private String senha;
     private String dataNascimento;
+    
+    public Pessoa () {
+        nome = "";
+        email = "";
+        senha = "";
+    }
 
     public int getId() {
         return id;

@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cadastro Realizado com Sucesso</title>
+        <title>Modificação Realizada com Sucesso</title>
         <!-- Inclua o CSS do Bootstrap -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     </head>
@@ -18,7 +18,7 @@
         <div class="container mt-5">
             <div class="alert alert-success" role="alert">
                 <h4 class="alert-heading">Sucesso!</h4>
-                <p>Seu cadastro foi concluído com sucesso.</p>
+                <p>Seu cadastro/atualização foi concluído com sucesso.</p>
                 <hr>
                 <p class="mb-0"><a href="home.jsp" class="btn btn-primary">Voltar à página inicial</a></p>
             </div>

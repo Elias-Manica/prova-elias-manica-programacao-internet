@@ -18,7 +18,7 @@
         <div class="container mt-5">
             <div class="alert alert-danger" role="alert">
                 <h4 class="alert-heading">Erro!</h4>
-                <p>Ocorreu um erro durante o cadastro. Por favor, tente novamente mais tarde.</p>
+                <p><%= request.getAttribute("erroMensagem") != null ? request.getAttribute("erroMensagem") : "Infelizmente, não foi possível concluir a operação." %></p>
                 <hr>
                 <p class="mb-0"><a href="cadastro.jsp" class="btn btn-primary">Voltar ao formulário de cadastro</a></p>
             </div>

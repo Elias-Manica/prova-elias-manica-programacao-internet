@@ -5,10 +5,12 @@
 package dao;
 import apoio.ConexaoBD;
 import entidade.Pessoa;
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  *
@@ -87,5 +89,73 @@ public class PessoaDAO {
             System.out.println("Erro ao atualizar Pessoa: " + e);
             return false;
         }
+    }
+    
+    public ArrayList<Pessoa> consultar() {
+        ArrayList<Pessoa> pessoas = new ArrayList<>();
+
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT * FROM pessoa";
+            System.out.println("SQL: " + sql);
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            while (resultado.next()) {
+                Pessoa p = new Pessoa();
+                p.setId(resultado.getInt("id"));
+                p.setNome(resultado.getString("nome"));
+                p.setEmail(resultado.getString("email"));
+                p.setSenha(resultado.getString("senha"));
+                p.setDataNascimento(resultado.getString("dataNascimento"));
+                pessoas.add(p);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar Pessoa: " + e);
+        }
+
+        return pessoas;
+    }
+    public boolean excluir(int codigo) {
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "DELETE FROM pessoa WHERE id = " + codigo;
+            System.out.println("SQL: " + sql);
+
+            st.executeUpdate(sql);
+            return true;
+
+        } catch (Exception e) {
+            System.out.println("Erro ao excluir Pessoa: " + e);
+            return false;
+        }
+    }
+    public Pessoa consultar(int codigo) {
+        Pessoa pessoa = new Pessoa();
+
+        try {
+            Statement st = ConexaoBD.getInstance().getConnection().createStatement();
+
+            String sql = "SELECT * FROM pessoa WHERE id = " + codigo;
+            System.out.println("SQL: " + sql);
+
+            ResultSet resultado = st.executeQuery(sql);
+
+            if (resultado.next()) {
+                pessoa.setId(resultado.getInt("id"));
+                pessoa.setNome(resultado.getString("nome"));
+                pessoa.setEmail(resultado.getString("email"));
+                pessoa.setSenha(resultado.getString("senha"));
+                pessoa.setDataNascimento(resultado.getString("dataNascimento"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar UMA Pessoa: " + e);
+        }
+
+        return pessoa;
     }
 }

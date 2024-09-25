@@ -62,6 +62,27 @@ public class acao extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        String a = request.getParameter("a");
+        if (a.equals("editarPessoa")) {
+            System.out.println("entrei");
+            String id = request.getParameter("id");
+            int codigo = Integer.parseInt(id);
+
+            Pessoa pessoa = new PessoaDAO().consultar(codigo);
+            request.setAttribute("pessoa", pessoa);
+
+            encaminharPagina("cadastro.jsp", request, response);
+        }
+        if (a.equals("excluirPessoa")) {
+            String id = request.getParameter("id");
+            int codigo = Integer.parseInt(id);
+
+            if (new PessoaDAO().excluir(codigo)) {
+                encaminharPagina("list.jsp", request, response);
+            } else {
+                encaminharPagina("erro-cadastro.jsp", request, response);
+            }
+        }
     }
 
     /**
