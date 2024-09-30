@@ -5,8 +5,8 @@
 package servelet;
 
 import dao.UsuarioDAO;
-import dao.PessoaDAO;
-import entidade.Pessoa;
+import dao.EstadoDAO;
+import entidade.Estado;
 import entidade.Usuario;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -63,26 +63,31 @@ public class acao extends HttpServlet {
             throws ServletException, IOException {
         //processRequest(request, response);
         String a = request.getParameter("a");
-        if (a.equals("editarPessoa")) {
-            System.out.println("entrei");
+
+
+        if (a.equals("editarEstado")) {
             String id = request.getParameter("id");
             int codigo = Integer.parseInt(id);
 
-            Pessoa pessoa = new PessoaDAO().consultar(codigo);
-            request.setAttribute("pessoa", pessoa);
+            Estado estado = new EstadoDAO().consultar(codigo);
+            request.setAttribute("estado", estado);
 
-            encaminharPagina("cadastro.jsp", request, response);
+            encaminharPagina("cadastro-estados.jsp", request, response);
         }
-        if (a.equals("excluirPessoa")) {
+
+        if (a.equals("excluirEstado")) {
             String id = request.getParameter("id");
             int codigo = Integer.parseInt(id);
 
-            if (new PessoaDAO().excluir(codigo)) {
-                encaminharPagina("list.jsp", request, response);
+            if (new EstadoDAO().excluir(codigo)) {
+                encaminharPagina("listar-estados.jsp", request, response);
             } else {
                 encaminharPagina("erro-cadastro.jsp", request, response);
             }
         }
+
+
+
     }
 
     /**
@@ -129,38 +134,38 @@ public class acao extends HttpServlet {
 
             response.sendRedirect("login.jsp");
         }
-        if (a.equals("salvarUsuario")) {
+        if (a.equals("salvarEstado")) {
             String codigo = request.getParameter("id");
             String nome = request.getParameter("nome");
-            String email = request.getParameter("email");
-            String senha = request.getParameter("senha");
-            String dataNascimento = request.getParameter("dataNascimento");
+            String sigla = request.getParameter("sigla");
+            String regiao = request.getParameter("regiao");
+            String paisId = request.getParameter("pais");
 
-            Pessoa pessoa = new Pessoa();
+            Estado estado = new Estado();
 
             if (codigo != null && !codigo.isEmpty()) {
                 int id = Integer.parseInt(codigo);
-                pessoa.setId(id);
+                estado.setId(id);
             } else {
-                pessoa.setId(0);
+                estado.setId(0);
             }
-            
-            pessoa.setNome(nome);
-            pessoa.setEmail(email);
-            pessoa.setSenha(senha);
-            pessoa.setDataNascimento(dataNascimento);
 
-            String errorMessage = new PessoaDAO().validarDados(pessoa);
+            estado.setNome(nome);
+            estado.setSigla(sigla);
+            estado.setRegiao(regiao);
+            estado.setPaisId(Integer.parseInt(paisId));
+
+            String errorMessage = new EstadoDAO().validarDados(estado);
 
             if (errorMessage == null) {
-                if (pessoa.getId() == 0) {
-                    if (new PessoaDAO().salvar(pessoa)) {
+                if (estado.getId() == 0) { // Novo estado
+                    if (new EstadoDAO().salvar(estado)) {
                         encaminharPagina("sucesso.jsp", request, response);
                     } else {
                         encaminharPagina("erro-cadastro.jsp", request, response);
                     }
-                } else { // Atualizando usuário existente
-                    if (new PessoaDAO().atualizar(pessoa)) {
+                } else { // Atualizando estado existente
+                    if (new EstadoDAO().atualizar(estado)) {
                         encaminharPagina("sucesso.jsp", request, response);
                     } else {
                         encaminharPagina("erro-cadastro.jsp", request, response);
@@ -171,6 +176,7 @@ public class acao extends HttpServlet {
                 encaminharPagina("erro-cadastro.jsp", request, response);
             }
         }
+
 
     }
 

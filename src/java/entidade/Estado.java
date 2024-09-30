@@ -5,20 +5,22 @@
 package entidade;
 
 /**
- *
+ * Entidade Estado
+ * 
  * @author Elias
  */
-public class Pessoa {
+public class Estado {
     private int id;
     private String nome;
-    private String email;
-    private String senha;
-    private String dataNascimento;
-    
-    public Pessoa () {
+    private String sigla;
+    private String regiao;
+    private int paisId;
+
+    public Estado() {
         nome = "";
-        email = "";
-        senha = "";
+        sigla = "";
+        regiao = "";
+        paisId = 0;
     }
 
     public int getId() {
@@ -37,27 +39,27 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSigla() {
+        return sigla;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSigla(String sigla) {
+        this.sigla = sigla;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getRegiao() {
+        return regiao;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setRegiao(String regiao) {
+        this.regiao = regiao;
     }
 
-    public String getDataNascimento() {
-        return dataNascimento;
+    public int getPaisId() {
+        return paisId;
     }
 
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setPaisId(int paisId) {
+        this.paisId = paisId;
     }
 }

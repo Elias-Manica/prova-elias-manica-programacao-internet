@@ -20,7 +20,7 @@
                 <h4 class="alert-heading">Erro!</h4>
                 <p><%= request.getAttribute("erroMensagem") != null ? request.getAttribute("erroMensagem") : "Infelizmente, não foi possível concluir a operação." %></p>
                 <hr>
-                <p class="mb-0"><a href="cadastro.jsp" class="btn btn-primary">Voltar ao formulário de cadastro</a></p>
+                <p class="mb-0"><a href="cadastro-estados.jsp" class="btn btn-primary">Voltar ao formulário de cadastro</a></p>
             </div>
         </div>
         <!-- Inclua o JavaScript do Bootstrap -->

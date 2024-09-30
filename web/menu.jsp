@@ -37,10 +37,10 @@
                             <a class="nav-link" href="home.jsp">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cadastro.jsp">Cadastro</a>
+                            <a class="nav-link" href="cadastro-estados.jsp">Cadastro estado</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="list.jsp">Listar</a>
+                            <a class="nav-link" href="listar-estados.jsp">Listar estados</a>
                         </li>
                     </ul>
                     <form class="d-flex" action="acao?a=logout" method="post">                       
