@@ -59,9 +59,11 @@
                 border-radius: 4px;
                 cursor: pointer;
                 width: 100%;
+                margin-top: 20px;
             }
             input[type="submit"]:hover {
                 background-color: #34495e;
+                
             }
             .wrapper {
                 display: flex;

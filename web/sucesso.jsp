@@ -20,7 +20,7 @@
                 <h4 class="alert-heading">Sucesso!</h4>
                 <p>Seu cadastro/atualização foi concluído com sucesso.</p>
                 <hr>
-                <p class="mb-0"><a href="cadastro-estados.jsp" class="btn btn-primary">Vizualizar estados cadastrados</a></p>
+                <p class="mb-0"><a href="listar-estados.jsp" class="btn btn-primary">Vizualizar estados cadastrados</a></p>
             </div>
         </div>
         <!-- Inclua o JavaScript do Bootstrap -->

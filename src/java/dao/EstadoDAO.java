@@ -81,7 +81,7 @@ public class EstadoDAO {
         if (estado.getSigla().length() != 2) {
             return "A sigla do estado deve ter exatamente 2 caracteres.";
         }
-        if (estado.getRegiao() == null || estado.getRegiao().trim().isEmpty()) {
+        if (estado.getRegiao() == null || estado.getRegiao().trim().isEmpty() || estado.getRegiao().length() > 100) {
             return "O campo região é obrigatório.";
         }
         if (estado.getPaisId() <= 0) {
